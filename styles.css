@@ -55,12 +55,13 @@ body {
 /* MAIN GAME DISPLAY */
 
 .grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
+    display: grid;
+}
+
+.grid-item {
+    transition: background-color 0.5s;
 }
 
 .footer {
