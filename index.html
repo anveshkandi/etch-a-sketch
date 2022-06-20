@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Etch-a-sketch</h1>
+    </header>
+
+    <div class="game-container">
+        <div class="settings">
+            <h2> Settings </h2>
+            <button class="buttons" id="clr-btn"> Clear </button>
+            <button class="buttons" id="color-btn"> Pick Color </button>
+            <div class="slidercontainer">
+                <Input class="range" type="range" value="0" min="0" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                <p> Grid size: <span id="slideOutput">0</span></p>
+            </div>
+        </div>
+        <div class="grid" id="gridID">grid</div>
+    </div>
+
+    <footer class="footer">
+        <p>
+          Copyright ©
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+          Anvesh Kandi
+        </p>
+        <a href="https://github.com/michalosman" target="_blank">
+          <i class="fab fa-github"></i
+        ></a>
+      </footer>
+</body>
+</html>
