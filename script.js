@@ -2,6 +2,7 @@ const DEFAULT_SIZE = 16;
 const DEFAULT_COLOR = '#000000';
 
 const gridContainer = document.querySelector('.grid');
+const gridSizeOutput = document.querySelectorAll('.slideOutput')
 
 let sizeBtn = document.getElementById('size-btn');
 let clrBtn = document.getElementById('clr-btn');
@@ -43,37 +44,38 @@ function createGrid(gridSize){
 
 //Handles the coloring of each grid item
 function changeColor(e){
-
-    //Darkens the cell by approximately 10% every time it is hovered
-    if(greyscaleMode){
+    //Darkens the cell every time it is colored
+    if(greyscaleMode && mousedown){
         //Retrieving target rgb to darken it
         color = e.target.style.getPropertyValue("background-color");
         color = color.substring(color.indexOf('(')+1, color.indexOf(')'));
         rgbColors = color.split(',', 3);
 
-        //Approximately 
+        //About a 10% darken at this factor
         let r = Math.floor(rgbColors[0]*0.6);
         let b = Math.floor(rgbColors[1]*0.6);
         let g = Math.floor(rgbColors[2]*0.6);
 
-        e.target.style.backgroundColor = 'rgb(' + r + ',' + b + ',' + g + ')';
+        e.target.style.backgroundColor = 'rgb(' + [r,b,g].join(',')+ ')';
     }
     //Fills the cell with a random color when it is hovered
-    else if(rainbowMode){
+    else if(rainbowMode && mousedown){
         let r = Math.floor(Math.random()*255);
         let b = Math.floor(Math.random()*255);
         let g = Math.floor(Math.random()*255);
 
-        e.target.style.backgroundColor = 'rgb(' + r + ',' + b + ',' + g + ')';
+        e.target.style.backgroundColor = 'rgb(' + [r,b,g].join(',')+ ')';
     }
     //Fills the cell with a user selected color
-    else {
+    else if (mousedown){
         e.target.style.backgroundColor = penColor;
     }
+    else {return;}
 }
 
 //Clears the canvas of all colors
 function clearGrid(){
+    penColor = '#000000';
     let gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach(e => {
         e.style.backgroundColor = '#FFFFFF';
@@ -89,6 +91,7 @@ function eraseGrid(){
 //Changes the grid size when user inputs a new size value
 function changeGrid(gridSize){
     eraseGrid();
+    gridSizeOutput.forEach(e => e.textContent = gridSize);
     createGrid(gridSize);
 }
 
