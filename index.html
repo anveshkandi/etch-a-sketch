@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header class="header">
-        <h1>Etch-a-sketch</h1>
     </header>
 
     <div class="game-container">
@@ -20,13 +20,18 @@
             <button class="buttons" id="color-btn"> Pick Color </button>
             <button class="buttons" id="eraser-btn"> Eraser </button>
             <button class="buttons" id="size-btn">Change Grid Size</button>
+            <button class="buttons" id="grey-btn">Greyscale</button>
+            <button class="buttons" id="rand-btn">Rainbow</button>
             <div class="slidercontainer">
-                <Input class="range" type="range" value="0" min="0" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
-                <p> Grid size: <span id="slideOutput">0</span></p>
+               <!-- <Input class="range" type="range" value="0" min="0" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">-->
+                <p> Grid size: <span id="slideOutput">16</span> x <span id="slideOutput">16</span></p>
             </div>
         </div>
-        <div class="grid">
+        <div class="grid-container">
+          <h1>Etch-a-sketch</h1>
+          <div class="grid">
 
+          </div>
         </div>
     </div>
 

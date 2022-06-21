@@ -1,15 +1,30 @@
 const DEFAULT_SIZE = 16;
 const DEFAULT_COLOR = '#000000';
 
+const gridContainer = document.querySelector('.grid');
+
 let sizeBtn = document.getElementById('size-btn');
 let clrBtn = document.getElementById('clr-btn');
 let eraserBtn = document.getElementById('eraser-btn');
 let colorBtn = document.getElementById('color-btn');
+let greyBtn = document.getElementById('grey-btn');
+let rainbowBtn = document.getElementById('rand-btn');
 let gridSize = DEFAULT_SIZE;
 let penColor = DEFAULT_COLOR;
+let mousedown = false;
+let rainbowMode = false;
+let greyscaleMode = false;
 
-const gridContainer = document.querySelector('.grid');
 
+//Tracking mouse down and up functions to allow dragging
+document.body.onmousedown = function(){
+    mousedown = true;
+}
+document.body.onmouseup = function(){
+    mousedown = false;
+}
+
+//Generates the canvas at the specified size
 function createGrid(gridSize){
     gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
@@ -20,17 +35,44 @@ function createGrid(gridSize){
         div.classList.add('grid-item');
         div.setAttribute('draggable', false);
         div.addEventListener('mouseover', changeColor);
+        div.addEventListener('mousedown', changeColor);
         gridContainer.appendChild(div);
         div.style.backgroundColor = '#FFFFFF'; //To avoid creating a double border
     }
 }
 
-
 //Handles the coloring of each grid item
 function changeColor(e){
-    e.target.style.backgroundColor = penColor;
+
+    //Darkens the cell by approximately 10% every time it is hovered
+    if(greyscaleMode){
+        //Retrieving target rgb to darken it
+        color = e.target.style.getPropertyValue("background-color");
+        color = color.substring(color.indexOf('(')+1, color.indexOf(')'));
+        rgbColors = color.split(',', 3);
+
+        //Approximately 
+        let r = Math.floor(rgbColors[0]*0.6);
+        let b = Math.floor(rgbColors[1]*0.6);
+        let g = Math.floor(rgbColors[2]*0.6);
+
+        e.target.style.backgroundColor = 'rgb(' + r + ',' + b + ',' + g + ')';
+    }
+    //Fills the cell with a random color when it is hovered
+    else if(rainbowMode){
+        let r = Math.floor(Math.random()*255);
+        let b = Math.floor(Math.random()*255);
+        let g = Math.floor(Math.random()*255);
+
+        e.target.style.backgroundColor = 'rgb(' + r + ',' + b + ',' + g + ')';
+    }
+    //Fills the cell with a user selected color
+    else {
+        e.target.style.backgroundColor = penColor;
+    }
 }
 
+//Clears the canvas of all colors
 function clearGrid(){
     let gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach(e => {
@@ -38,10 +80,13 @@ function clearGrid(){
     })
 }
 
+//Clears div elements inside grid container so new grid can be drawn
 function eraseGrid(){
     gridContainer.innerHTML = '';
 }
 
+
+//Changes the grid size when user inputs a new size value
 function changeGrid(gridSize){
     eraseGrid();
     createGrid(gridSize);
@@ -56,9 +101,38 @@ sizeBtn.addEventListener('click', ()=>{
     changeGrid(gridSize);
 })
 
+//Enables and disables greyscale mode on button click
+greyBtn.addEventListener('click', ()=>{
+    if(greyscaleMode === false){
+        rainbowMode = false; //Toggles other modes off so multiple are not active at once
+        greyscaleMode = true;
+        return;
+    }
+    else {
+        greyscaleMode = false;
+        return;
+    }
+})
+
+//Enables and disables rainbow mode on button click
+rainbowBtn.addEventListener('click', ()=>{
+    if(rainbowMode === false){
+        greyscaleMode = false; //Toggles other modes off so multiple are not active at once
+        rainbowMode = true;
+        return;
+    }
+    else {
+        rainbowMode = false;
+        return;
+    }
+})
 
 //Testing will update in the near future
-eraserBtn.addEventListener('click', () => penColor = '#FFFFFF');
+eraserBtn.addEventListener('click', () => {
+    penColor = '#FFFFFF'
+    greyscaleMode = false; //Toggles other modes off
+    rainbowMode = false;
+});
 colorBtn.addEventListener('click', () => penColor = '#000000');
 
 window.onload = () => {
