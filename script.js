@@ -131,7 +131,7 @@ rainbowBtn.addEventListener('click', ()=>{
     }
 })
 
-//Testing will update in the near future
+//Sets pen color to white to erase drawing
 eraserBtn.addEventListener('click', () => {
     penColor = '#FFFFFF'
     greyscaleMode = false; //Toggles other modes off
