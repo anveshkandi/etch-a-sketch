@@ -6,14 +6,6 @@ body {
     background-color: #f0dbad;
 }
 
-.header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    padding: 16px;
-}
-
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -23,7 +15,7 @@ body {
 
 .grid-container h1 {
     color: rgb(15, 44, 88);
-    font-size: 48px;
+    font-size: 64px;
     font-family: 'Caveat', cursive;
 }
 
@@ -71,7 +63,17 @@ body {
     border-radius: 50%;
     width: 75px;
     height: 75px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    transition: 0.25s;
+    border: 2px solid black;
+}
+
+.color-preview input {
+    cursor: pointer;
+}
+
+.color-preview:hover {
+    transform: scale(1.1);
 }
 
 .settings p {
